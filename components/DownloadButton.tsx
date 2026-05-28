@@ -7,13 +7,27 @@ export default function DownloadButton({
   missionId: number;
   missionName: string;
 }) {
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Programmatically create an anchor to trigger download without rendering an <a>
+    const url = `/pdfs/mission-${missionId}.pdf`;
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `mission-${missionId}.pdf`;
+    // For accessibility / fallback, open in new tab if download not supported
+    a.rel = "noopener noreferrer";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  };
+
   return (
-    <a
-      href={`/pdfs/mission-${missionId}.pdf`}
-      download
+    <button
+      type="button"
+      onClick={handleClick}
       className="flex items-center justify-center w-6 h-6 rounded border border-gray-700 text-gray-400 hover:border-[#fb4f13]/50 hover:text-[#fb4f13] transition-colors"
       title={`Download ${missionName} PDF`}
-      onClick={(e) => e.stopPropagation()}
+      aria-label={`Download ${missionName} PDF`}
     >
       <svg
         className="w-3 h-3"
@@ -28,6 +42,6 @@ export default function DownloadButton({
           d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
         />
       </svg>
-    </a>
+    </button>
   );
 }
