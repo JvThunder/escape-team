@@ -21,11 +21,10 @@ function WrongAttemptIcons({ count }: { count: number }) {
       {Array.from({ length: 5 }).map((_, i) => (
         <div
           key={i}
-          className={`w-6 h-6 rounded flex items-center justify-center transition-all duration-300 ${
-            i < count
+          className={`w-6 h-6 rounded flex items-center justify-center transition-all duration-300 ${i < count
               ? "bg-red-500/20 text-red-400 border border-red-500/60"
               : "bg-gray-800 text-gray-700 border border-gray-700"
-          }`}
+            }`}
         >
           <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
@@ -180,7 +179,6 @@ export default function MissionPage({ params }: { params: Promise<{ id: string }
       } else {
         setCurrentPhase((p) => p + 1);
         setPhaseStart(elapsed);
-        setWrongAttempts(0);
         setHintsRevealed(0);
       }
     } else {
@@ -215,16 +213,15 @@ export default function MissionPage({ params }: { params: Promise<{ id: string }
     }
   };
 
-  const totalWrongAttempts = phaseHistory.reduce((_, __) => 0, 0) + wrongAttempts;
+  const totalWrongAttempts = wrongAttempts;
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100 flex flex-col">
       {/* Flash overlay */}
       {flash && (
         <div
-          className={`fixed inset-0 pointer-events-none z-50 transition-opacity duration-300 ${
-            flash === "success" ? "bg-green-500/10" : "bg-red-500/10"
-          }`}
+          className={`fixed inset-0 pointer-events-none z-50 transition-opacity duration-300 ${flash === "success" ? "bg-green-500/10" : "bg-red-500/10"
+            }`}
         />
       )}
 
@@ -253,9 +250,8 @@ export default function MissionPage({ params }: { params: Promise<{ id: string }
 
           {/* Timer */}
           <div
-            className={`font-mono text-2xl sm:text-3xl font-bold tabular-nums tracking-widest ${
-              completed ? "text-green-400" : started ? "text-amber-300" : "text-gray-600"
-            }`}
+            className={`font-mono text-2xl sm:text-3xl font-bold tabular-nums tracking-widest ${completed ? "text-green-400" : started ? "text-amber-300" : "text-gray-600"
+              }`}
           >
             {formatTime(elapsed)}
           </div>
@@ -276,13 +272,12 @@ export default function MissionPage({ params }: { params: Promise<{ id: string }
               {mission.phases.map((_, i) => (
                 <div
                   key={i}
-                  className={`flex items-center justify-center rounded-lg font-mono font-bold text-sm w-10 h-10 border-2 transition-all duration-300 ${
-                    i < currentPhase
+                  className={`flex items-center justify-center rounded-lg font-mono font-bold text-sm w-10 h-10 border-2 transition-all duration-300 ${i < currentPhase
                       ? "bg-green-500/20 border-green-500/60 text-green-400"
                       : i === currentPhase
-                      ? "bg-amber-400/10 border-amber-400 text-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.2)]"
-                      : "bg-gray-900 border-gray-700 text-gray-600"
-                  }`}
+                        ? "bg-amber-400/10 border-amber-400 text-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.2)]"
+                        : "bg-gray-900 border-gray-700 text-gray-600"
+                    }`}
                 >
                   {i < currentPhase ? (
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
