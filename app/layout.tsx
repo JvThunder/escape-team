@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   description: "Complete all phases before time runs out.",
   icons: {
     icon: "/image.png",
+    shortcut: "/image.png",
     apple: "/image.png",
   },
 };
